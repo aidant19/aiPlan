@@ -31,7 +31,7 @@ class MMRFetcher(commands.Cog):
 
         names, links = (["aiTan"], ["https://rocketleague.tracker.network/profile/steam/aidant19"])
         total = len(names)
-        tenPercent = total // 10
+        tenPercent = total / 10
 
         i = 0 #count of each row in the Tracker Links
         for i in range(0, total):
