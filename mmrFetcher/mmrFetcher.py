@@ -15,10 +15,6 @@ from discord import File
 now = datetime.datetime.now()
 readibletime =  now.strftime("%Y-%m-%d_%H-%M-%S")
 
-scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-credentials = ServiceAccountCredentials.from_json_keyfile_name('Trackers-10a10d9d831a.json', scope)
-gc = gspread.authorize(credentials)
-
 Outputcsv = "%s.csv" % (readibletime)
 CurrentSeason = 11
 Seasons = [11]
@@ -33,7 +29,7 @@ class MMRFetcher(commands.Cog):
         await ctx.send("Fetching MMR data...")
         w = self._createcsv()
 
-        names, links = self._readTrackerList()
+        names, links = ("aiTan", "https://rocketleague.tracker.network/profile/steam/aidant19")
         total = len(names)
         tenPercent = total // 10
 
@@ -59,12 +55,6 @@ class MMRFetcher(commands.Cog):
                 
         await ctx.send("Done", file=File(Outputcsv))
         os.remove(Outputcsv)
-
-    def _readTrackerList(self):
-        wks = gc.open('Tracker Links').sheet1
-        names = wks.col_values(1)
-        links = wks.col_values(2)
-        return names, links
 
     def _createcsv(self):
         '''Create CSV output file'''
