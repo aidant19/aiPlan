@@ -29,7 +29,7 @@ class MMRFetcher(commands.Cog):
         await ctx.send("Fetching MMR data...")
         w = self._createcsv()
 
-        names, links = ("aiTan", "https://rocketleague.tracker.network/profile/steam/aidant19")
+        names, links = (["aiTan"], ["https://rocketleague.tracker.network/profile/steam/aidant19"])
         total = len(names)
         tenPercent = total // 10
 
