@@ -43,7 +43,7 @@ class MMRFetcher(commands.Cog):
                     mmr,platform,gamertag = unpack
                 else:
                     platform,gamertag = unpack
-                ctx.send(gamertag + " " + platform)
+                await ctx.send(gamertag + " " + platform)
                 data = self._rlscrape(gamertag,platform)
                 self._writefetch(w, data, name, link)
                 i += 1
@@ -53,7 +53,7 @@ class MMRFetcher(commands.Cog):
                 i += 1
                 await ctx.send("Error on line {0}: {1}".format(i, e))
             await asyncio.sleep(.01)
-                
+        await asyncio.sleep(.01)        
         await ctx.send("Done", file=File(Outputcsv))
         os.remove(Outputcsv)
 
