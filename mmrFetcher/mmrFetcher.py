@@ -13,9 +13,9 @@ from bs4 import BeautifulSoup
 from discord import File
 
 now = datetime.datetime.now()
-readibletime =  now.strftime("%Y-%m-%d_%H-%M-%S")
+readabletime =  now.strftime("%Y-%m-%d_%H-%M-%S")
 
-Outputcsv = "%s.csv" % (readibletime)
+Outputcsv = "%s.csv" % (readabletime)
 CurrentSeason = 11
 Seasons = [11]
 GamesPlayed = True
@@ -43,15 +43,16 @@ class MMRFetcher(commands.Cog):
                     mmr,platform,gamertag = unpack
                 else:
                     platform,gamertag = unpack
+                ctx.send(gamertag + " " + platform)
                 data = self._rlscrape(gamertag,platform)
                 self._writefetch(w, data, name, link)
                 i += 1
                 if i % tenPercent == 0:
-                    await ctx.send("Fetch Progress: {}0% Complete".format(i // tenPercent))
+                    await ctx.send("Fetch Progress: {}0% Complete".format(i / tenPercent))
             except Exception as e:
                 i += 1
                 await ctx.send("Error on line {0}: {1}".format(i, e))
-            await asyncio.sleep(.001)
+            await asyncio.sleep(.01)
                 
         await ctx.send("Done", file=File(Outputcsv))
         os.remove(Outputcsv)
