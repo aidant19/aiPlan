@@ -16,8 +16,8 @@ now = datetime.datetime.now()
 readabletime =  now.strftime("%Y-%m-%d_%H-%M-%S")
 
 Outputcsv = "%s.csv" % (readabletime)
-CurrentSeason = 11
-Seasons = [11]
+CurrentSeason = 14
+Seasons = [14]
 GamesPlayed = True
 
 class MMRFetcher(commands.Cog):
@@ -46,6 +46,7 @@ class MMRFetcher(commands.Cog):
                         platform,gamertag = unpack
                     await ctx.send(gamertag + " " + platform)
                     data = self._rlscrape(gamertag,platform)
+                    await ctx.send(data)
                     self._writefetch(w, data, name, link)
                     i += 1
                     if i % tenPercent == 0:
