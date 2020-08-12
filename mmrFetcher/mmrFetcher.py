@@ -27,35 +27,34 @@ class MMRFetcher(commands.Cog):
     @checks.is_owner()
     async def fetch(self, ctx):
         await ctx.send("Fetching MMR data...")
-        w = self._createcsv()
+        with self._createcsv() as w:
 
-        names, links = (["aiTan"], ["https://rocketleague.tracker.network/profile/steam/aidant19"])
-        total = len(names)
-        tenPercent = total / 10
+            names, links = (["aiTan"], ["https://rocketleague.tracker.network/profile/steam/aidant19"])
+            total = len(names)
+            tenPercent = total / 10
 
-        i = 0 #count of each row in the Tracker Links
-        for i in range(0, total):
-            try:
-                name,link = names[i], links[i]
-                linksplit = link.split('profile/')
-                unpack = [ x for x in linksplit[1].split('/') if x]
-                if "mmr" in unpack:
-                    mmr,platform,gamertag = unpack
-                else:
-                    platform,gamertag = unpack
-                await ctx.send(gamertag + " " + platform)
-                data = self._rlscrape(gamertag,platform)
-                self._writefetch(w, data, name, link)
-                i += 1
-                if i % tenPercent == 0:
-                    await ctx.send("Fetch Progress: {}0% Complete".format(i / tenPercent))
-            except Exception as e:
-                i += 1
-                await ctx.send("Error on line {0}: {1}".format(i, e))
-            await asyncio.sleep(.01)
+            i = 0 #count of each row in the Tracker Links
+            for i in range(0, total):
+                try:
+                    name,link = names[i], links[i]
+                    linksplit = link.split('profile/')
+                    unpack = [ x for x in linksplit[1].split('/') if x]
+                    if "mmr" in unpack:
+                        mmr,platform,gamertag = unpack
+                    else:
+                        platform,gamertag = unpack
+                    await ctx.send(gamertag + " " + platform)
+                    data = self._rlscrape(gamertag,platform)
+                    self._writefetch(w, data, name, link)
+                    i += 1
+                    if i % tenPercent == 0:
+                        await ctx.send("Fetch Progress: {}0% Complete".format(i / tenPercent))
+                except Exception as e:
+                    i += 1
+                    await ctx.send("Error on line {0}: {1}".format(i, e))
+                await asyncio.sleep(.01)
 
         await ctx.send("Done", file=File(Outputcsv))
-        await asyncio.sleep(.01)
         os.remove(Outputcsv)
 
     def _createcsv(self):
