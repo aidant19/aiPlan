@@ -30,7 +30,7 @@ class MMRFetcher(commands.Cog):
         with open(Outputcsv, 'w', newline='') as file:
             w = self._createcsv(file)
 
-            names, links = (["aiTan"], ["https://rocketleague.tracker.network/profile/steam/aidant19"])
+            names, links = (["aiTan"], ["profile/steam/aidant19"])
             total = len(names)
             tenPercent = total / 10
 
@@ -82,7 +82,7 @@ class MMRFetcher(commands.Cog):
         #clienterrors = [400,401,402,403,404] #future proof
         #servererrors = [500,501,502,503,504,505,506,507,508,510,511] #future proof
         playerdata = {} #define the playerdata dict
-        playerdata[gamertag] = {} #definte the gamertag dict
+        playerdata[gamertag] = {} #define the gamertag dict
         playlistdict = {0:'Un-Ranked',10:'Ranked Duel 1v1',11:'Ranked Doubles 2v2',12:'Ranked Solo Standard 3v3',13:'Ranked Standard 3v3'}
         webpath = "https://rocketleague.tracker.network"
         for season in Seasons:
