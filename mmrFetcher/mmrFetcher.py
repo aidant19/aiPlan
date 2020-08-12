@@ -30,7 +30,7 @@ class MMRFetcher(commands.Cog):
         with open(Outputcsv, 'w', newline='') as file:
             w = self._createcsv(file)
 
-            names, links = (["aiTan"], ["profile/steam/aidant19"])
+            names, links = (["aiTan"], ["https://rocketleague.tracker.network/profile/steam/76561198079435423"])
             total = len(names)
             tenPercent = total / 10
 
@@ -44,7 +44,7 @@ class MMRFetcher(commands.Cog):
                         mmr,platform,gamertag = unpack
                     else:
                         platform,gamertag = unpack
-                    await ctx.send(gamertag + " " + platform)
+                    await ctx.send(name)
                     data = self._rlscrape(gamertag,platform)
                     await ctx.send(data)
                     self._writefetch(w, data, name, link)
